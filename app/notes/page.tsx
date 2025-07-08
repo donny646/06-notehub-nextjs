@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 import { fetchNotes } from "@/lib/api";
 import NotesClient from "./Notes.client";
 
