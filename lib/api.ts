@@ -4,6 +4,7 @@ import type { NewNoteData, Note } from "../types/note";
 interface fetchNotesProps {
   debounceQuery: string;
   currentPage: number;
+  
 }
 
 export interface NotesResponse {

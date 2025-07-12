@@ -36,7 +36,8 @@ const onPageChange = (page: number) => setCurrentPage(page);
     queryKey: ["notes", debounceQuery, currentPage],
     queryFn: () =>
       fetchNotes({
-        page: currentPage, 
+        string: debounceQuery,
+        number: currentPage, 
       }),
     refetchOnMount: false,
     placeholderData: keepPreviousData,
