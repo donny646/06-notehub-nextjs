@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
-import { fetchNotes} from "@/lib/api";
+import { fetchNotes, NotesResponse } from "@/lib/api";
 import css from "./NotesPage.module.css";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
@@ -36,8 +36,8 @@ const onPageChange = (page: number) => setCurrentPage(page);
     queryKey: ["notes", debounceQuery, currentPage],
     queryFn: () =>
       fetchNotes({
-        string: debounceQuery,
-        number: currentPage, 
+        debounceQuery,
+        currentPage, 
       }),
     refetchOnMount: false,
     placeholderData: keepPreviousData,

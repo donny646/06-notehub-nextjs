@@ -2,9 +2,9 @@ import axios from "axios";
 import type { NewNoteData, Note } from "../types/note";
 
 interface fetchNotesProps {
-  debounceQuery: string;
+  debounceQuery: query;
   currentPage: number;
-  
+
 }
 
 export interface NotesResponse {
