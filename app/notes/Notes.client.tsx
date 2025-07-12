@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { fetchNotes, NotesResponse } from "@/lib/api";
-import css from "./NotesPage.module.tsx";
+import css from "./NotesPage.module.css";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
 import NoteModal from "@/components/NoteModal/NoteModal";
@@ -58,14 +58,14 @@ const createNoteBtn = () => {
   setIsModalOpen(false);
 };
 
-  const heandleSearch = (debounceQuery: string) => {
+  const handleSearch = (debounceQuery: string) => {
     setQuery(debounceQuery);
     setCurrentPage(1);
   };
   return (
     <div className={css.app}>
       <div className={css.toolbar}>
-        <SearchBox onSearch={heandleSearch} value={""} />
+        <SearchBox onSearch={handleSearch} value={""} />
 
         {isSuccess && totalPages > 1 && (
           <Pagination
