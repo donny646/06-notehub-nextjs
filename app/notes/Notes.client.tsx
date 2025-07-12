@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { fetchNotes, NotesResponse } from "@/lib/api";
-import css from "./NotesPage.module.css";
+import css from "./NotesPage.module.tsx";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
 import NoteModal from "@/components/NoteModal/NoteModal";
@@ -26,10 +26,9 @@ export default function NotesClient({
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [modalOnClose, setModalOnClose] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const onPageChange = ({ selected }: { selected: number }) =>
-    setCurrentPage(selected + 1);
+const onPageChange = (page: number) => setCurrentPage(page);
 
   const [debounceQuery] = useDebounce(searchQuery, 500);
 
@@ -37,8 +36,8 @@ export default function NotesClient({
     queryKey: ["notes", debounceQuery, currentPage],
     queryFn: () =>
       fetchNotes({
-        debounceQuery,
-        currentPage,
+        query: debounceQuery,
+        page: currentPage, 
       }),
     refetchOnMount: false,
     placeholderData: keepPreviousData,
@@ -51,22 +50,22 @@ export default function NotesClient({
 
   const totalPages = data?.totalPages ?? 0;
 
-  const createNoteBtn = () => {
-    setModalOnClose(true);
-  };
+const createNoteBtn = () => {
+  setIsModalOpen(true);
+};
 
   const closeModal = () => {
-    setModalOnClose(false);
-  };
+  setIsModalOpen(false);
+};
 
-  const heandleSerach = (debounceQuery: string) => {
+  const heandleSearch = (debounceQuery: string) => {
     setQuery(debounceQuery);
     setCurrentPage(1);
   };
   return (
     <div className={css.app}>
       <div className={css.toolbar}>
-        <SearchBox value={searchQuery} onSearch={heandleSerach} />
+        <SearchBox onSearch={heandleSearch} value={""} />
 
         {isSuccess && totalPages > 1 && (
           <Pagination
@@ -83,7 +82,7 @@ export default function NotesClient({
 
       {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
 
-      {modalOnClose && <NoteModal onClose={closeModal} />}
+      {isModalOpen && <NoteModal onClose={closeModal} />}
     </div>
   );
 }
