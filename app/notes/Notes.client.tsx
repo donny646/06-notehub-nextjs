@@ -27,7 +27,7 @@ export default function NotesClient({
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [modalOnClose, setModalOnClose] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onPageChange = ({ selected }: { selected: number }) =>
     setCurrentPage(selected + 1);
