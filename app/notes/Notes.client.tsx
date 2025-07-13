@@ -11,6 +11,7 @@ import NoteModal from "@/components/NoteModal/NoteModal";
 import NoteList from "@/components/NoteList/NoteList";
 
 type NotesClientProps = {
+  value: string;
   initialData: NotesResponse;
   initialQuery: {
     debounceQuery: string;
@@ -52,11 +53,11 @@ export default function NotesClient({
   const totalPages = data?.totalPages ?? 0;
 
   const createNoteBtn = () => {
-    setModalOnClose(true);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setModalOnClose(false);
+    setIsModalOpen(false);
   };
 
   const heandleSerach = (debounceQuery: string) => {
@@ -66,7 +67,7 @@ export default function NotesClient({
   return (
     <div className={css.app}>
       <div className={css.toolbar}>
-        <SearchBox value={searchQuery} onSearch={heandleSerach} />
+        <SearchBox value={searchQuery} onSearch={heandleSearch} />
 
         {isSuccess && totalPages > 1 && (
           <Pagination
@@ -83,7 +84,7 @@ export default function NotesClient({
 
       {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
 
-      {modalOnClose && <NoteModal onClose={closeModal} />}
+      {isModalOpen && <NoteModal onClose={closeModal} />}
     </div>
   );
 }
