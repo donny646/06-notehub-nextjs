@@ -60,14 +60,14 @@ export default function NotesClient({
     setIsModalOpen(false);
   };
 
-  const heandleSerach = (debounceQuery: string) => {
+  const handleSearch = (debounceQuery: string) => {
     setQuery(debounceQuery);
     setCurrentPage(1);
   };
   return (
     <div className={css.app}>
       <div className={css.toolbar}>
-        <SearchBox value={searchQuery} onSearch={heandleSearch} />
+        <SearchBox value={searchQuery} onSearch={handleSearch} />
 
         {isSuccess && totalPages > 1 && (
           <Pagination
