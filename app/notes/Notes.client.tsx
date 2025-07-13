@@ -11,7 +11,6 @@ import NoteModal from "@/components/NoteModal/NoteModal";
 import NoteList from "@/components/NoteList/NoteList";
 
 type NotesClientProps = {
-  value: string;
   initialData: NotesResponse;
   initialQuery: {
     debounceQuery: string;
